@@ -80,14 +80,14 @@ describe DotMailer::DataField do
 
   subject { DotMailer::DataField.new(attributes) }
 
-  its(:name)       { should == name }
-  its(:type)       { should == type }
-  its(:visibility) { should == visibility }
-  its(:default)    { should == default }
+  it { subject.name.should == name }
+  it { subject.type.should == type }
+  it { subject.visibility.should == visibility }
+  it { subject.default.should == default }
 
-  its(:to_s) { should == 'DotMailer::DataField name: "FIRSTNAME", type: "String", visibility: "Public", default: "John"' }
+  it { subject.to_s.should == 'DotMailer::DataField name: "FIRSTNAME", type: "String", visibility: "Public", default: "John"' }
 
-  its(:to_json) { should == attributes.to_json }
+  it { subject.to_json.should == attributes.to_json }
 
   describe '#==' do
     specify { subject.should == DotMailer::DataField.new(attributes) }

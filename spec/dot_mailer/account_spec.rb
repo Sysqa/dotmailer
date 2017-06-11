@@ -68,7 +68,7 @@ describe DotMailer::Account do
         subject.data_fields
       end
 
-      its(:data_fields) { should == data_fields }
+      it { subject.data_fields.should == data_fields }
     end
 
     context 'when the cache is not empty' do
@@ -82,7 +82,7 @@ describe DotMailer::Account do
         subject.data_fields
       end
 
-      its(:data_fields) { should == data_fields }
+      it { subject.data_fields.should == data_fields }
     end
   end
 
@@ -136,7 +136,7 @@ describe DotMailer::Account do
         subject.from_addresses
       end
 
-      its(:from_addresses) { should == from_addresses }
+      it { subject.from_addresses.should == from_addresses }
     end
 
     context 'when the cache is not empty' do
@@ -156,7 +156,7 @@ describe DotMailer::Account do
         subject.from_addresses
       end
 
-      its(:from_addresses) { should == from_addresses }
+      it { subject.from_addresses.should == from_addresses }
     end
   end
 end

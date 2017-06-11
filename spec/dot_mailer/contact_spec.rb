@@ -110,11 +110,11 @@ describe DotMailer::Contact do
 
   subject { DotMailer::Contact.new(account, attributes) }
 
-  its(:id)          { should == id }
-  its(:email)       { should == email }
-  its(:opt_in_type) { should == opt_in_type }
-  its(:email_type)  { should == email_type }
-  its(:status)      { should == status }
+  it { subject.id.should == id }
+  it { subject.email.should == email }
+  it { subject.opt_in_type.should == opt_in_type }
+  it { subject.email_type.should == email_type }
+  it { subject.status.should == status }
 
   it_should_have_assignable_attributes :email, :email_type
 
@@ -272,7 +272,7 @@ describe DotMailer::Contact do
       end
 
       it 'should return false' do
-        subject.resubscribe(return_url).should be_false
+        subject.resubscribe(return_url).should be false
       end
     end
 

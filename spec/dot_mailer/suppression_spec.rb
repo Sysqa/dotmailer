@@ -21,9 +21,9 @@ describe DotMailer::Suppression do
     DotMailer::Contact.stub(:new).with(account, contact_attributes).and_return(contact)
   end
 
-  its(:contact)      { should == contact }
-  its(:date_removed) { should == Time.parse('1st March 2013 16:30:45 +01:00') }
-  its(:reason)       { should == reason }
+  it { subject.contact.should == contact }
+  it { subject.date_removed.should == Time.parse('1st March 2013 16:30:45 +01:00') }
+  it { subject.reason.should == reason }
 
   describe 'Class' do
     subject { DotMailer::Suppression }

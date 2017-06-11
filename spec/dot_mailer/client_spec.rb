@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DotMailer::Client do
   let(:api_user)      { 'john_doe' }
   let(:api_pass)      { 's3cr3t' }
-  let(:api_base_url)  { "https://#{api_user}:#{api_pass}@api.dotmailer.com" }
+  let(:api_base_url)  { "https://api.dotmailer.com" }
   let(:api_path)      { '/some/api/path' }
   let(:api_endpoint)  { "#{api_base_url}/v2#{api_path}" }
 
@@ -13,7 +13,8 @@ describe DotMailer::Client do
     let(:response) { { 'foo' => 'bar' } }
 
     before(:each) do
-      stub_request(:get, api_endpoint).to_return(:body => response.to_json)
+      stub_request(:get, api_endpoint).with(basic_auth: [api_user, api_pass])
+        .to_return(:body => response.to_json)
     end
 
     it 'should GET the endpoint with a JSON accept header' do
@@ -48,7 +49,8 @@ describe DotMailer::Client do
     let(:csv)      { double 'csv' }
 
     before(:each) do
-      stub_request(:get, api_endpoint).to_return(:body => response)
+      stub_request(:get, api_endpoint).with(basic_auth: [api_user, api_pass])
+        .to_return(:body => response)
       CSV.stub(:parse => csv)
     end
 
@@ -61,6 +63,7 @@ describe DotMailer::Client do
     end
 
     it 'should pass the response to CSV.parse with the correct options' do
+      RestClient.stub(:get).and_return(response)
       CSV.should_receive(:parse).with(response, :headers => true)
 
       subject.get_csv api_path
@@ -76,7 +79,8 @@ describe DotMailer::Client do
     let(:response) { { 'foo' => 'bar' } }
 
     before(:each) do
-      stub_request(:post, api_endpoint).to_return(:body => response.to_json)
+      stub_request(:post, api_endpoint).with(basic_auth: [api_user, api_pass])
+        .to_return(:body => response.to_json)
     end
 
     it 'should POST the data to the endpoint with a JSON accept header' do
@@ -97,7 +101,8 @@ describe DotMailer::Client do
       let(:response)      { { 'message' => error_message } }
 
       before(:each) do
-        stub_request(:post, api_endpoint).to_return(:status => 400, :body => response.to_json)
+        stub_request(:post, api_endpoint).with(basic_auth: [api_user, api_pass])
+          .to_return(:status => 400, :body => response.to_json)
       end
 
       it 'should raise an InvalidRequest error with the error message' do
@@ -160,7 +165,7 @@ describe DotMailer::Client do
 
   describe '#delete' do
     before(:each) do
-      stub_request(:delete, api_endpoint)
+      stub_request(:delete, api_endpoint).with(basic_auth: [api_user, api_pass])
     end
 
     it 'should DELETE the endpoint with a JSON accept header' do

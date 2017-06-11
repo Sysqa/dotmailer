@@ -41,7 +41,7 @@ describe DotMailer::ContactImport do
 
   subject { DotMailer::ContactImport.new(account, contacts) }
 
-  its(:id) { should be_nil }
+  it { subject.id.should be_nil }
 
   describe '#start' do
     before(:each) do
@@ -101,7 +101,7 @@ describe DotMailer::ContactImport do
     context 'when the import has not started' do
       let(:id) { nil }
 
-      its(:status) { should == 'NotStarted' }
+      it { subject.status.should == 'NotStarted' }
     end
 
     context 'when the import has started' do

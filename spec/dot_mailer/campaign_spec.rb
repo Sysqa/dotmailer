@@ -145,12 +145,12 @@ describe DotMailer::Campaign do
     end
   end
 
-  its(:id)                 { should == id }
-  its(:name)               { should == name }
-  its(:from_name)          { should == from_name }
-  its(:from_address)       { should == from_address }
-  its(:html_content)       { should == html_content }
-  its(:plain_text_content) { should == plain_text_content }
+  it { subject.id.should == id }
+  it { subject.name.should == name }
+  it { subject.from_name.should == from_name }
+  it { subject.from_address.should == from_address }
+  it { subject.html_content.should == html_content }
+  it { subject.plain_text_content.should == plain_text_content }
 
   describe '#send_to_contact_ids' do
     let(:contact_ids) { double 'contact ids' }
